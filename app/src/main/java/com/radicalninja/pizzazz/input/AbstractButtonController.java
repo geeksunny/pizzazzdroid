@@ -14,7 +14,7 @@ public abstract class AbstractButtonController {
 
     final Map<Pin, ButtonCallback> buttonMap = new HashMap<>();
 
-    private void handleButtonEvent(final Pin pin, final int action) {
+    void handleButtonEvent(final Pin pin, final int action) {
         if (!buttonMap.containsKey(pin) || null != buttonMap.get(pin)) {
             final ButtonCallback callback = buttonMap.get(pin);
             switch (action) {
