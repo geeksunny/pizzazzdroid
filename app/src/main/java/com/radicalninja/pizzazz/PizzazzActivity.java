@@ -19,6 +19,9 @@ package com.radicalninja.pizzazz;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+
+import java.io.IOException;
 
 /**
  * Skeleton of the main Android Things activity. Implement your device's logic
@@ -39,18 +42,42 @@ import android.util.Log;
  * is available.
  *
  */
-public class MainActivity extends Activity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class PizzazzActivity extends Activity {
+
+    private static final String TAG = PizzazzActivity.class.getSimpleName();
+
+    private Pizzazz pizzazz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
+        try {
+            pizzazz = new Pizzazz();
+        } catch (IOException e) {
+            Log.e(TAG, "There was an error starting Pizzazz.", e);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
+        pizzazz.c
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
+        return super.onKeyMultiple(keyCode, repeatCount, event);
     }
 }

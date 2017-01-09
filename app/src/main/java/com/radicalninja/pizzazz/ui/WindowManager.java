@@ -44,4 +44,17 @@ public class WindowManager extends MultiplexButtonController {
             focusRight();
         }
     }
+
+    public void start() {
+
+    }
+
+    public void stop() {
+
+    }
+
+    public void cleanup() {
+        
+    }
+
 }
