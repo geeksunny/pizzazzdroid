@@ -63,7 +63,7 @@ public class PizzazzActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        pizzazz.c
+        //pizzazz.close();
     }
 
     @Override
