@@ -1,6 +1,7 @@
 package com.radicalninja.pizzazz.display;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
 
@@ -27,7 +28,7 @@ public class Oled1306Screen extends AbstractScreen {
     }
 
     @Override
-    public void drawWindow() {
+    public void drawBitmap(final Bitmap bitmap) {
         // TODO
     }
 }

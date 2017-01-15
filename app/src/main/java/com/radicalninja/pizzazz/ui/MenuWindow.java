@@ -1,5 +1,6 @@
 package com.radicalninja.pizzazz.ui;
 
+import com.radicalninja.pizzazz.display.AbstractScreen;
 import com.radicalninja.pizzazz.util.Focusable;
 
 import java.util.ArrayList;
@@ -36,4 +37,9 @@ public class MenuWindow extends AbstractWindow implements Focusable {
         outlined = true;
     }
 
+    @Override
+    public void refresh(AbstractScreen screen) {
+        // TODO: create Canvas, pass to Renderer objects
+        // TODO: draw canvas' bitmap to screen
+    }
 }

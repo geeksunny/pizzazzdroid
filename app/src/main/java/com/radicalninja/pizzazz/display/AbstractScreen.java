@@ -1,19 +1,20 @@
 package com.radicalninja.pizzazz.display;
 
-import com.radicalninja.pizzazz.ui.AbstractWindow;
+import android.graphics.Bitmap;
 
 public abstract class AbstractScreen {
 
     private boolean focused;
-    private AbstractWindow window;
 
-    public void setWindow(final AbstractWindow window) {
-        this.window = window;
+    public boolean isFocused() {
+        return focused;
     }
 
-    // TODO: write methods for drawing shapes/text/etc
+    public void setFocused(boolean focused) {
+        this.focused = focused;
+    }
 
-    abstract void drawWindow();
+    abstract void drawBitmap(final Bitmap bitmap);
 
     abstract void clearScreen();
 

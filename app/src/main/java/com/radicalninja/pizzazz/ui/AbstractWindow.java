@@ -1,5 +1,7 @@
 package com.radicalninja.pizzazz.ui;
 
+import com.radicalninja.pizzazz.display.AbstractScreen;
+
 public abstract class AbstractWindow {
 
     private String title;
@@ -9,8 +11,14 @@ public abstract class AbstractWindow {
         this.title = title;
     }
 
-    public void refresh() {
-        // TODO: draw to screen
+    public abstract void refresh(final AbstractScreen screen);
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }
