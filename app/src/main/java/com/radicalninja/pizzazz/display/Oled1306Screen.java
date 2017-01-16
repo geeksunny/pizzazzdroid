@@ -3,6 +3,7 @@ package com.radicalninja.pizzazz.display;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 
+import com.google.android.things.contrib.driver.ssd1306.BitmapHelper;
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
 
 import java.io.IOException;
@@ -23,12 +24,25 @@ public class Oled1306Screen extends AbstractScreen {
     }
 
     @Override
-    public void clearScreen() {
-        display.clearPixels();
+    public int getHeight() {
+        return 64;
     }
 
     @Override
-    public void drawBitmap(final Bitmap bitmap) {
-        // TODO
+    public int getWidth() {
+        return 128;
     }
+
+    @Override
+    public void clearScreen() throws IOException {
+        display.clearPixels();
+        display.show();
+    }
+
+    @Override
+    public void drawBitmap(final Bitmap bitmap, final int x, final int y) throws IOException {
+        BitmapHelper.setBmpData(display, x, y, bitmap, false);
+        display.show();
+    }
+
 }

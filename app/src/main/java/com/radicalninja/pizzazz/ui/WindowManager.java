@@ -1,15 +1,20 @@
 package com.radicalninja.pizzazz.ui;
 
+import android.util.Log;
+
 import com.radicalninja.pizzazz.display.AbstractScreen;
 import com.radicalninja.pizzazz.input.ButtonManager;
 import com.radicalninja.pizzazz.input.MultiplexButtonController;
 import com.radicalninja.pizzazz.util.Focusable;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class WindowManager extends MultiplexButtonController {
 
-    // Displays are presently handled in a single horizontal line. TODO: Add DisplayConfigurations
+    private static final String TAG = WindowManager.class.getSimpleName();
+
+    // Displays are presently handled in a single horizontal line. TODO: Add DisplayLayouts / DisplayConfigurations
     private final LinkedList<Display> displays = new LinkedList<>();
 
     private Display focusedDisplay;
@@ -65,12 +70,15 @@ public class WindowManager extends MultiplexButtonController {
         if (focusedDisplay == display) {
             return;
         }
-        // TODO: Unfocus focusedDisplay
-        focusedDisplay.setFocused(false);
-        // TODO: focusedDisplay = display
+        if (null != focusedDisplay) {
+            focusedDisplay.setFocused(false);
+        }
         focusedDisplay = display;
-        // TODO: Focus focusedDisplay
         focusedDisplay.setFocused(true);
+    }
+
+    private void refreshDisplays() {
+        // TODO:
     }
 
     public void start() {
@@ -82,12 +90,17 @@ public class WindowManager extends MultiplexButtonController {
     }
 
     public void cleanup() {
-
+        for (final Display display : displays) {
+            try {
+                display.screen.clearScreen();
+            } catch (IOException e) {
+                Log.e(TAG, "Encountered an error trying to clear the display.", e);
+            }
+        }
     }
 
     private class Display {
 
-        // TODO: Add logic for using Closeable interface
         final AbstractScreen screen;
         final History history = new History();
 
@@ -97,6 +110,12 @@ public class WindowManager extends MultiplexButtonController {
         public Display(final AbstractScreen screen, final AbstractWindow currentWindow) {
             this.screen = screen;
             this.currentWindow = currentWindow;
+            openWindow(currentWindow);
+        }
+
+        public void openWindow(final AbstractWindow window) {
+            // TODO: Add logic for using Closeable interface
+            // todo: focus new window?
         }
 
         public boolean isFocused() {
