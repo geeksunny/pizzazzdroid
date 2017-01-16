@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.radicalninja.pizzazz.myproject">
+    package="com.radicalninja.pizzazz">
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,7 @@
 
         <uses-library android:name="com.google.android.things"/>
 
-        <activity android:name="com.radicalninja.pizzazz.myproject.com.radicalninja.pizzazz.MainActivity">
+        <activity android:name=".PizzazzActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

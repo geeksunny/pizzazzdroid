@@ -23,9 +23,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-import com.radicalninja.pizzazz.myproject.R;
 import com.google.android.things.contrib.driver.ssd1306.BitmapHelper;
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
+import com.radicalninja.pizzazz.R;
 
 import java.io.IOException;
 
