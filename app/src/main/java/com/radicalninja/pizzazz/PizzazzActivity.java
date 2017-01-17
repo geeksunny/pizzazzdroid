@@ -21,28 +21,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
+import com.radicalninja.pizzazz.display.Oled1306Screen;
+import com.radicalninja.pizzazz.ui.WindowManager;
+
+import java.io.IOException;
+
 public class PizzazzActivity extends Activity {
 
     private static final String TAG = PizzazzActivity.class.getSimpleName();
 
-    private Pizzazz pizzazz;
+    private final WindowManager windowManager = new WindowManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
-        try {
-            pizzazz = new Pizzazz();
-        } catch (IOException e) {
-            Log.e(TAG, "There was an error starting Pizzazz.", e);
-        }
+        Pizzazz.getInstance().setupHwRev2(windowManager);
+        windowManager.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        //pizzazz.close();
+        windowManager.stop();
+        windowManager.cleanup();
     }
 
     @Override

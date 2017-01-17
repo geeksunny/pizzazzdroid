@@ -82,14 +82,11 @@ public class WindowManager extends MultiplexButtonController {
     }
 
     public void start() {
-
+        // todo: no displays? throw exception
+        refreshDisplays();
     }
 
     public void stop() {
-
-    }
-
-    public void cleanup() {
         for (final Display display : displays) {
             try {
                 display.screen.clearScreen();
@@ -97,6 +94,10 @@ public class WindowManager extends MultiplexButtonController {
                 Log.e(TAG, "Encountered an error trying to clear the display.", e);
             }
         }
+    }
+
+    public void cleanup() {
+        // todo: close screen and gpio objects?
     }
 
     private class Display {
