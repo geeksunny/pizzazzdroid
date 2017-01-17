@@ -1,8 +1,10 @@
 package com.radicalninja.pizzazz;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.util.Log;
 
+import com.google.android.things.contrib.driver.sensehat.SenseHat;
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
 import com.radicalninja.pizzazz.display.Oled1306Screen;
 import com.radicalninja.pizzazz.ui.AbstractWindow;
@@ -30,6 +32,11 @@ public class Pizzazz extends Application {
     public void onCreate() {
         super.onCreate();
         Fonts.init(getAssets());
+        try {
+            SenseHat.openDisplay().draw(Color.BLACK);
+        } catch (IOException e) {
+            Log.e(TAG, "Error opening the SenseHat LED matrix.", e);
+        }
     }
 
     public void setupHwRev2(final WindowManager wm) {
