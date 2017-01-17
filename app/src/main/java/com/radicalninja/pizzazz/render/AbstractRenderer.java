@@ -44,6 +44,6 @@ public abstract class AbstractRenderer {
         margin.bottom = bottom;
     }
 
-    abstract void render(final Canvas canvas);
+    public abstract void render(final Canvas canvas);
 
 }

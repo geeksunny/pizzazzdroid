@@ -24,6 +24,11 @@ public class Pizzazz extends Application {
 
     public Pizzazz() {
         instance = this;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
         Fonts.init(getAssets());
     }
 

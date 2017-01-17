@@ -1,16 +1,20 @@
 package com.radicalninja.pizzazz.ui;
 
-import android.graphics.Canvas;
+import android.util.Log;
 
 import com.radicalninja.pizzazz.display.AbstractScreen;
 import com.radicalninja.pizzazz.render.TextRenderer;
+import com.radicalninja.pizzazz.util.BitmapCanvas;
 import com.radicalninja.pizzazz.util.Focusable;
 import com.radicalninja.pizzazz.util.Fonts;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuWindow extends AbstractWindow implements Focusable {
+
+    private final static String TAG = MenuWindow.class.getSimpleName();
 
     private final TextRenderer titleRenderer;
     private final TextRenderer itemRenderer;
@@ -48,10 +52,17 @@ public class MenuWindow extends AbstractWindow implements Focusable {
 
     @Override
     public void refresh(AbstractScreen screen) {
-        final Canvas canvas = screen.canvas();
+        final BitmapCanvas canvas = screen.canvas();
 
+        titleRenderer.setText(getTitle());
+        titleRenderer.setStartPoint(0, 15);
+        titleRenderer.render(canvas);
 
-        // TODO: create Canvas, pass to Renderer objects
-        // TODO: draw canvas' bitmap to screen
+        try {
+            screen.drawBitmap(canvas.getBitmap(), 0, 0);
+        } catch (IOException e) {
+            Log.e(TAG, "Error drawing bitmap to screen!", e);
+        }
+        canvas.recycle();
     }
 }

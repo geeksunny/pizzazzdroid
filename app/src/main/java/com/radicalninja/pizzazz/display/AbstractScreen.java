@@ -1,7 +1,8 @@
 package com.radicalninja.pizzazz.display;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
+
+import com.radicalninja.pizzazz.util.BitmapCanvas;
 
 import java.io.IOException;
 
@@ -14,9 +15,9 @@ public abstract class AbstractScreen {
     public abstract int getWidth();
     public abstract int getHeight();
 
-    public Canvas canvas() {
+    public BitmapCanvas canvas() {
         final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        return new Canvas(bitmap);
+        return new BitmapCanvas(bitmap);
     }
 
 }

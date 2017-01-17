@@ -18,14 +18,9 @@ package com.radicalninja.pizzazz;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 
-import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
-import com.radicalninja.pizzazz.display.Oled1306Screen;
 import com.radicalninja.pizzazz.ui.WindowManager;
-
-import java.io.IOException;
 
 public class PizzazzActivity extends Activity {
 
@@ -41,9 +36,8 @@ public class PizzazzActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
+    protected void onStop() {
+        super.onStop();
         windowManager.stop();
         windowManager.cleanup();
     }

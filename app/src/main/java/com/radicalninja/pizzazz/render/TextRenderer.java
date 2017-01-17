@@ -71,13 +71,14 @@ public class TextRenderer extends AbstractRenderer {
     }
 
     @Override
-    void render(Canvas canvas) {
+    public void render(Canvas canvas) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
         final Paint paint = new Paint();
         paint.setTypeface(font.getTypeface());
         paint.setTextSize(font.getTextSize());
+        paint.setColor(getColorFill());
         canvas.drawText(text, xyStart.x, xyStart.y, paint);
     }
 

@@ -78,7 +78,9 @@ public class WindowManager extends MultiplexButtonController {
     }
 
     private void refreshDisplays() {
-        // TODO:
+        for (final Display display : displays) {
+            display.refresh();
+        }
     }
 
     public void start() {
@@ -133,6 +135,10 @@ public class WindowManager extends MultiplexButtonController {
                     window.onUnfocused();
                 }
             }
+        }
+
+        public void refresh() {
+            currentWindow.refresh(screen);
         }
     }
 

@@ -8,7 +8,7 @@ public class ListRenderer extends AbstractRenderer {
 //    private final TextRenderer itemRenderer = new TextRenderer();
 
     @Override
-    void render(Canvas canvas) {
+    public void render(Canvas canvas) {
         //canvas.text
     }
 
