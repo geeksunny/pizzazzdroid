@@ -11,7 +11,7 @@ public abstract class AbstractRenderer {
     private final static int COLOR_EMPTY = Color.BLACK;
 
     private boolean invertColors = false;
-    private Margin margin;
+    private Margin margin = new Margin();
 
     public AbstractRenderer() {
         //
@@ -35,6 +35,10 @@ public abstract class AbstractRenderer {
 
     public Margin getMargin() {
         return margin;
+    }
+
+    public void setMargin(final int margin) {
+        setMargin(margin, margin, margin, margin);
     }
 
     public void setMargin(final int left, final int top, final int right, final int bottom) {

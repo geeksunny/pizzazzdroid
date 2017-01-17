@@ -27,6 +27,11 @@ public class MenuWindow extends AbstractWindow implements Focusable {
         super(title);
         titleRenderer = new TextRenderer(Fonts.CHRONO_TYPE.typeface());
         itemRenderer = new TextRenderer(Fonts.SUPER_MARIO_WORLD.typeface());
+
+        titleRenderer.setTextSize(16);
+        itemRenderer.setTextSize(8);
+        itemRenderer.setMargin(1);
+        position = 0;
     }
 
     public void addMenuItem(final String title, final MenuItem.Callback callback) {
@@ -54,9 +59,19 @@ public class MenuWindow extends AbstractWindow implements Focusable {
     public void refresh(AbstractScreen screen) {
         final BitmapCanvas canvas = screen.canvas();
 
+        int y = (int) titleRenderer.getTextSize();
         titleRenderer.setText(getTitle());
-        titleRenderer.setStartPoint(0, 15);
+        titleRenderer.setStartPoint(0, y);
         titleRenderer.render(canvas);
+
+        for (int i = 0; i < items.size(); i++) {
+            final MenuItem item = items.get(i);
+            itemRenderer.setHighlighted(i == position);
+            y += itemRenderer.getRenderedHeight();
+            itemRenderer.setText(item.getTitle());
+            itemRenderer.setStartPoint(0, y);
+            itemRenderer.render(canvas);
+        }
 
         try {
             screen.drawBitmap(canvas.getBitmap(), 0, 0);
