@@ -2,6 +2,7 @@ package com.radicalninja.pizzazz.render;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 
 import com.radicalninja.pizzazz.util.Margin;
 
@@ -12,10 +13,15 @@ public abstract class AbstractRenderer {
 
     private boolean invertColors = false;
     private Margin margin = new Margin();
+    private Point xy = new Point(); // TODO: Change to PointF to reduce required casting?
 
     public AbstractRenderer() {
         //
     }
+
+    public abstract float getRenderedWidth();
+    public abstract float getRenderedHeight();
+    public abstract void render(final Canvas canvas);
 
     public boolean isInvertColors() {
         return invertColors;
@@ -48,6 +54,12 @@ public abstract class AbstractRenderer {
         margin.bottom = bottom;
     }
 
-    public abstract void render(final Canvas canvas);
+    public Point getStartPoint() {
+        return xy;
+    }
+
+    public void setStartPoint(final int x, final int y) {
+        xy.set(x, y);
+    }
 
 }

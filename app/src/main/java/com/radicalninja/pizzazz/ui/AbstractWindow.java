@@ -11,6 +11,12 @@ public abstract class AbstractWindow {
         this.title = title;
     }
 
+    public void open(final AbstractScreen screen) {
+        setWidth(screen.getWidth());
+    }
+
+    public abstract void setWidth(final int width);
+
     public abstract void refresh(final AbstractScreen screen);
 
     public String getTitle() {

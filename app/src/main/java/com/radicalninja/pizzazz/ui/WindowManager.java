@@ -117,7 +117,7 @@ public class WindowManager extends MultiplexButtonController {
         }
 
         public void openWindow(final AbstractWindow window) {
-            // TODO: Add logic for using Closeable interface
+            window.open(screen);
             // todo: focus new window?
         }
 

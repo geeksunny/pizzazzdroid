@@ -16,7 +16,6 @@ public class TextRenderer extends AbstractRenderer {
 
     private int width = 70; // TODO: Move this into AbstractRenderer? maybe min/max width/height?
     private TextAlignment alignment = TextAlignment.LEFT;
-    private Point xyStart = new Point();
     private String text;
     private boolean highlighted;
 
@@ -56,20 +55,15 @@ public class TextRenderer extends AbstractRenderer {
         this.width = width;
     }
 
+    @Override
     public float getRenderedWidth() {
-        return width + getMargin().left + getMargin().right;
+        final float renderedWidth = width + getMargin().left + getMargin().right;
+        return (renderedWidth > width) ? (float) width : renderedWidth;
     }
 
+    @Override
     public float getRenderedHeight() {
         return getTextSize() + getMargin().top + getMargin().bottom;
-    }
-
-    public Point getStartPoint() {
-        return xyStart;
-    }
-
-    public void setStartPoint(final int x, final int y) {
-        xyStart.set(x, y);
     }
 
     public String getText() {
@@ -104,18 +98,19 @@ public class TextRenderer extends AbstractRenderer {
         final Paint paint = new Paint();
         paint.setColor(getColorFill());
         final Margin margin = getMargin();
+        final Point xy = getStartPoint();
         if (highlighted) {
-            final float left = (float) xyStart.x;
-            final float top = xyStart.y - getTextSize();
-            final float right = (float) xyStart.x + width + margin.left + margin.right;
-            final float bottom = (float) xyStart.y + margin.top + margin.bottom;
+            final float left = (float) xy.x;
+            final float top = xy.y - getTextSize();
+            final float right = (float) xy.x + width + margin.left + margin.right;
+            final float bottom = (float) xy.y + margin.top + margin.bottom;
             canvas.drawRect(left, top, right, bottom, paint);
             paint.setColor(getColorEmpty());
         }
         paint.setTypeface(font.getTypeface());
         paint.setTextSize(font.getTextSize());
-        final float startX = xyStart.x + margin.top;
-        final float startY = xyStart.y + margin.left;
+        final float startX = xy.x + margin.top;
+        final float startY = xy.y + margin.left;
         canvas.drawText(text, startX, startY, paint);
     }
 
