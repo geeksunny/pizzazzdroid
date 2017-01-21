@@ -27,4 +27,5 @@ public abstract class AbstractWindow {
         this.title = title;
     }
 
+    // TODO: Abstract method for hooking up windows' ButtonControllers. Callback objects will be members of subclass
 }

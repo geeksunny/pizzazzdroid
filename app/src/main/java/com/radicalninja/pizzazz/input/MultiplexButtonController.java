@@ -7,6 +7,8 @@ import java.util.List;
 
 public class MultiplexButtonController extends AbstractButtonController {
 
+    // TODO: add boolean return values and event consumption to handleButtonEvent
+
     private List<AbstractButtonController> buttonControllers = new ArrayList<>();
 
     public void registerController(final AbstractButtonController controller) {

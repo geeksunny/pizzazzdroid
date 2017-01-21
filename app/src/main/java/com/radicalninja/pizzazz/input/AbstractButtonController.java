@@ -35,7 +35,7 @@ public abstract class AbstractButtonController {
 
     abstract void setupButtons();
 
-    private void setupButton(final Pin pin, final ButtonCallback callback) {
+    protected void setupButton(final Pin pin, final ButtonCallback callback) {
         if (buttonMap.containsKey(pin) && null != buttonMap.get(pin)) {
             Log.e(TAG, String.format("Button on pin %s is already registered to this controller.", pin.pin()));
         } else {
