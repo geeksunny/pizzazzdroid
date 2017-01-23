@@ -8,4 +8,10 @@ public interface ButtonCallback {
 
     void onHeld();
 
+    class Impl implements ButtonCallback {
+        @Override public void onHeld() { }
+        @Override public void onPressed() { }
+        @Override public void onReleased() { }
+    }
+
 }

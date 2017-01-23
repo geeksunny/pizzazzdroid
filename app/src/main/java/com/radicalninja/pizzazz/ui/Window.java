@@ -1,6 +1,7 @@
 package com.radicalninja.pizzazz.ui;
 
 import com.radicalninja.pizzazz.display.Screen;
+import com.radicalninja.pizzazz.input.ButtonController;
 
 public abstract class Window {
 
@@ -14,6 +15,8 @@ public abstract class Window {
     public void open(final Screen screen) {
         setWidth(screen.getWidth());
     }
+
+    public abstract ButtonController[] getButtonControllers();
 
     public abstract void setWidth(final int width);
 
