@@ -10,11 +10,11 @@ import com.radicalninja.pizzazz.util.Font;
 import com.radicalninja.pizzazz.util.Margin;
 import com.radicalninja.pizzazz.util.TextAlignment;
 
-public class TextRenderer extends AbstractRenderer {
+public class TextRenderer extends Renderer {
 
     private final Font font;
 
-    private int width = 70; // TODO: Move this into AbstractRenderer? maybe min/max width/height?
+    private int width = 70; // TODO: Move this into Renderer? maybe min/max width/height?
     private TextAlignment alignment = TextAlignment.LEFT;
     private String text;
     private boolean highlighted;

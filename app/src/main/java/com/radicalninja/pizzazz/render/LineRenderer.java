@@ -6,7 +6,7 @@ import android.graphics.Point;
 
 import com.radicalninja.pizzazz.util.Margin;
 
-public class LineRenderer extends AbstractRenderer {
+public class LineRenderer extends Renderer {
 
     // TODO: Move height/width to interface?
     private int height;

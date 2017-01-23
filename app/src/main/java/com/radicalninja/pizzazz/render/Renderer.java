@@ -6,7 +6,7 @@ import android.graphics.Point;
 
 import com.radicalninja.pizzazz.util.Margin;
 
-public abstract class AbstractRenderer {
+public abstract class Renderer {
 
     private final static int COLOR_FILL = Color.WHITE;
     private final static int COLOR_EMPTY = Color.BLACK;
@@ -15,7 +15,7 @@ public abstract class AbstractRenderer {
     private Margin margin = new Margin();
     private Point xy = new Point(); // TODO: Change to PointF to reduce required casting?
 
-    public AbstractRenderer() {
+    public Renderer() {
         //
     }
 

@@ -2,7 +2,7 @@ package com.radicalninja.pizzazz.ui;
 
 import android.util.Log;
 
-import com.radicalninja.pizzazz.display.AbstractScreen;
+import com.radicalninja.pizzazz.display.Screen;
 import com.radicalninja.pizzazz.input.ButtonManager;
 import com.radicalninja.pizzazz.input.MultiplexButtonController;
 import com.radicalninja.pizzazz.util.Focusable;
@@ -23,12 +23,12 @@ public class WindowManager extends MultiplexButtonController {
         ButtonManager.INSTANCE.setButtonController(this);
     }
 
-    public void registerDisplay(final AbstractScreen screen, final AbstractWindow firstWindow) {
+    public void registerDisplay(final Screen screen, final Window firstWindow) {
         registerDisplay(screen, firstWindow, false);
     }
 
     public void registerDisplay(
-            final AbstractScreen screen, final AbstractWindow firstWindow, final boolean addToLeft) {
+            final Screen screen, final Window firstWindow, final boolean addToLeft) {
         final Display display = new Display(screen, firstWindow);
         if (addToLeft) {
             displays.push(display);
@@ -104,19 +104,19 @@ public class WindowManager extends MultiplexButtonController {
 
     private class Display {
 
-        final AbstractScreen screen;
+        final Screen screen;
         final History history = new History();
 
-        AbstractWindow currentWindow;
+        Window currentWindow;
         boolean isFocused;
 
-        public Display(final AbstractScreen screen, final AbstractWindow currentWindow) {
+        public Display(final Screen screen, final Window currentWindow) {
             this.screen = screen;
             this.currentWindow = currentWindow;
             openWindow(currentWindow);
         }
 
-        public void openWindow(final AbstractWindow window) {
+        public void openWindow(final Window window) {
             window.open(screen);
             // todo: focus new window?
         }

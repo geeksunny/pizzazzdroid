@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.google.android.things.contrib.driver.sensehat.SenseHat;
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
-import com.radicalninja.pizzazz.display.Oled1306Screen;
-import com.radicalninja.pizzazz.ui.AbstractWindow;
+import com.radicalninja.pizzazz.display.Oled1306;
+import com.radicalninja.pizzazz.ui.Window;
 import com.radicalninja.pizzazz.ui.MenuWindow;
 import com.radicalninja.pizzazz.ui.WindowManager;
 import com.radicalninja.pizzazz.util.Fonts;
@@ -56,9 +56,9 @@ public class Pizzazz extends Application {
         initDisplay(Ssd1306.I2C_ADDRESS, menuRight, wm);
     }
 
-    private boolean initDisplay(final int i2cAddress, final AbstractWindow firstWindow, final WindowManager wm) {
+    private boolean initDisplay(final int i2cAddress, final Window firstWindow, final WindowManager wm) {
         try {
-            final Oled1306Screen screen = new Oled1306Screen(i2cAddress);
+            final Oled1306 screen = new Oled1306(i2cAddress);
             wm.registerDisplay(screen, firstWindow);
             return true;
         } catch (IOException e) {

@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.radicalninja.pizzazz.Pin;
 
-public class DPadButtonController extends AbstractButtonController {
+public class DPadButtonController extends ButtonController {
 
     private final ButtonCallback upCallback;
     private final ButtonCallback downCallback;

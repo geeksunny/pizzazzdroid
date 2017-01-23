@@ -6,7 +6,7 @@ import com.radicalninja.pizzazz.util.BitmapCanvas;
 
 import java.io.IOException;
 
-public abstract class AbstractScreen {
+public abstract class Screen {
 
     public abstract void drawBitmap(final Bitmap bitmap, final int x, final int y) throws IOException;
 

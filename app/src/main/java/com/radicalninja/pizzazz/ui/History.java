@@ -4,13 +4,13 @@ import java.util.LinkedList;
 
 public class History {
 
-    private LinkedList<AbstractWindow> backstack = new LinkedList<>();
+    private LinkedList<Window> backstack = new LinkedList<>();
 
     public History() {
         //
     }
 
-    public void add(final AbstractWindow window) {
+    public void add(final Window window) {
         backstack.push(window);
     }
 

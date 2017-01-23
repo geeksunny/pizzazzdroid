@@ -20,13 +20,13 @@ public enum ButtonManager {
 
     private final Map<Pin, ButtonInputDriver> buttonMap = new HashMap<>();
 
-    private AbstractButtonController buttonController;
+    private ButtonController buttonController;
 
-    public AbstractButtonController getButtonController() {
+    public ButtonController getButtonController() {
         return buttonController;
     }
 
-    public void setButtonController(AbstractButtonController buttonController) {
+    public void setButtonController(ButtonController buttonController) {
         this.buttonController = buttonController;
     }
 

@@ -8,9 +8,9 @@ import com.radicalninja.pizzazz.Pin;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractButtonController {
+public abstract class ButtonController {
 
-    final static String TAG = AbstractButtonController.class.getSimpleName();
+    final static String TAG = ButtonController.class.getSimpleName();
 
     final Map<Pin, ButtonCallback> buttonMap = new HashMap<>();
 

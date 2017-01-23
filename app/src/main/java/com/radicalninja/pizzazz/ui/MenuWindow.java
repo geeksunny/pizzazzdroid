@@ -2,7 +2,7 @@ package com.radicalninja.pizzazz.ui;
 
 import android.util.Log;
 
-import com.radicalninja.pizzazz.display.AbstractScreen;
+import com.radicalninja.pizzazz.display.Screen;
 import com.radicalninja.pizzazz.render.LineRenderer;
 import com.radicalninja.pizzazz.render.ListRenderer;
 import com.radicalninja.pizzazz.render.TextRenderer;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuWindow extends AbstractWindow implements Focusable {
+public class MenuWindow extends Window implements Focusable {
 
     private final static String TAG = MenuWindow.class.getSimpleName();
 
@@ -74,7 +74,7 @@ public class MenuWindow extends AbstractWindow implements Focusable {
     }
 
     @Override
-    public void refresh(AbstractScreen screen) {
+    public void refresh(Screen screen) {
         final BitmapCanvas canvas = screen.canvas();
 
         int y = (int) titleRenderer.getTextSize();

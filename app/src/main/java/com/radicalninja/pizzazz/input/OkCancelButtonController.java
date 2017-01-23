@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.radicalninja.pizzazz.Pin;
 
-public class OkCancelButtonController extends AbstractButtonController {
+public class OkCancelButtonController extends ButtonController {
 
     private final ButtonCallback okCallback;
     private final ButtonCallback cancelCallback;
