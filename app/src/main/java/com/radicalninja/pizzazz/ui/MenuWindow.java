@@ -3,10 +3,9 @@ package com.radicalninja.pizzazz.ui;
 import android.util.Log;
 
 import com.radicalninja.pizzazz.display.Screen;
-import com.radicalninja.pizzazz.input.ButtonController;
 import com.radicalninja.pizzazz.input.ButtonCallback;
-import com.radicalninja.pizzazz.input.DPadButtonController;
-import com.radicalninja.pizzazz.input.OkCancelButtonController;
+import com.radicalninja.pizzazz.input.ButtonController;
+import com.radicalninja.pizzazz.input.ButtonControllers;
 import com.radicalninja.pizzazz.render.LineRenderer;
 import com.radicalninja.pizzazz.render.ListRenderer;
 import com.radicalninja.pizzazz.render.TextRenderer;
@@ -34,8 +33,8 @@ public class MenuWindow extends Window implements Focusable {
     public MenuWindow(String title) {
         super(title);
 
-        dPadController = new DPadButtonController(upCallback, downCallback, null, null);
-        okCancelController = new OkCancelButtonController(okCallback, cancelCallback);
+        dPadController = ButtonControllers.dPadButtons(upCallback, downCallback, null, null);
+        okCancelController = ButtonControllers.okCancelButtons(okCallback, cancelCallback);
 
         titleRenderer = new TextRenderer(Fonts.CHRONO_TYPE.typeface(), 12);
         listRenderer = new ListRenderer(Fonts.SUPER_MARIO_WORLD.typeface(), 7);

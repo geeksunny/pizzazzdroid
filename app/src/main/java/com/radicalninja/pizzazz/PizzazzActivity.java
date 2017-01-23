@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.radicalninja.pizzazz.input.ButtonManager;
 import com.radicalninja.pizzazz.ui.WindowManager;
 
 public class PizzazzActivity extends Activity {
@@ -44,16 +45,16 @@ public class PizzazzActivity extends Activity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+        return ButtonManager.onKeyUp(keyCode);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
+        return ButtonManager.onKeyDown(keyCode);
     }
 
     @Override
     public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
-        return super.onKeyMultiple(keyCode, repeatCount, event);
+        return ButtonManager.onKeyMultiple(keyCode);
     }
 }

@@ -3,6 +3,7 @@ package com.radicalninja.pizzazz.ui;
 import android.util.Log;
 
 import com.radicalninja.pizzazz.display.Screen;
+import com.radicalninja.pizzazz.input.ButtonController;
 import com.radicalninja.pizzazz.input.ButtonManager;
 import com.radicalninja.pizzazz.input.MultiplexButtonController;
 import com.radicalninja.pizzazz.util.Focusable;
@@ -116,6 +117,10 @@ public class WindowManager extends MultiplexButtonController {
             openWindow(currentWindow);
         }
 
+        public ButtonController[] getButtonControllers() {
+            return currentWindow.getButtonControllers();
+        }
+
         public void openWindow(final Window window) {
             window.open(screen);
             // todo: focus new window?
@@ -126,13 +131,18 @@ public class WindowManager extends MultiplexButtonController {
         }
 
         public void setFocused(boolean focused) {
+            if (isFocused == focused) {
+                return;
+            }
             isFocused = focused;
             if (currentWindow instanceof Focusable) {
                 final Focusable window = (Focusable) currentWindow;
                 if (focused) {
                     window.onFocused();
+                    registerControllers(getButtonControllers());
                 } else {
                     window.onUnfocused();
+                    unregisterControllers(getButtonControllers());
                 }
             }
         }

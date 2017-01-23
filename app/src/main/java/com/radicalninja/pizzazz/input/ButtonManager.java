@@ -2,6 +2,8 @@ package com.radicalninja.pizzazz.input;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.KeyEvent;
 
 import com.google.android.things.contrib.driver.button.Button;
 import com.google.android.things.contrib.driver.button.ButtonInputDriver;
@@ -18,6 +20,7 @@ public enum ButtonManager {
 
     private final static String TAG = "ButtonManager";
 
+    private final SparseArray<Pin> keyMap = new SparseArray<>();
     private final Map<Pin, ButtonInputDriver> buttonMap = new HashMap<>();
 
     private ButtonController buttonController;
@@ -39,6 +42,7 @@ public enum ButtonManager {
                         new ButtonInputDriver(pin.pin(), Button.LogicState.PRESSED_WHEN_LOW, pin.keycode());
                 button.register();
                 buttonMap.put(pin, button);
+                keyMap.put(pin.keycode(), pin);
             } catch (IOException e) {
                 Log.e(TAG, String.format("Error configuring GPIO button on pin %s", pin.pin()), e);
             }
@@ -67,6 +71,28 @@ public enum ButtonManager {
             closeButton(pin);
         }
         buttonMap.clear();
+    }
+
+    boolean onKeyEvent(final int keyCode, final int keyAction) {
+        final Pin pin = INSTANCE.keyMap.get(keyCode);
+        if (null == pin || null == buttonController) {
+            return false;
+        } else {
+            buttonController.handleButtonEvent(pin, keyAction);
+            return true;
+        }
+    }
+
+    public static boolean onKeyUp(final int keyCode) {
+        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_UP);
+    }
+
+    public static boolean onKeyDown(final int keyCode) {
+        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_DOWN);
+    }
+
+    public static boolean onKeyMultiple(final int keyCode) {
+        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_MULTIPLE);
     }
 
 }

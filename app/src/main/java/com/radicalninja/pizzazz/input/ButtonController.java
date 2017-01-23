@@ -8,13 +8,23 @@ import com.radicalninja.pizzazz.Pin;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ButtonController {
+public class ButtonController {
 
     final static String TAG = ButtonController.class.getSimpleName();
 
     final Map<Pin, ButtonCallback> buttonMap = new HashMap<>();
 
+    public ButtonController() {
+    }
+
+    private ButtonController(final Map<Pin, ButtonCallback> pinMap) {
+        for (final Map.Entry<Pin, ButtonCallback> entry : pinMap.entrySet()) {
+            setupButton(entry.getKey(), entry.getValue());
+        }
+    }
+
     void handleButtonEvent(final Pin pin, final int action) {
+        Log.d(TAG, "ButtonController.handleButtonEvent!");
         if (!buttonMap.containsKey(pin) || null != buttonMap.get(pin)) {
             final ButtonCallback callback = buttonMap.get(pin);
             switch (action) {
@@ -33,14 +43,24 @@ public abstract class ButtonController {
         }
     }
 
-    abstract void setupButtons();
-
     protected void setupButton(final Pin pin, final ButtonCallback callback) {
         if (buttonMap.containsKey(pin) && null != buttonMap.get(pin)) {
             Log.e(TAG, String.format("Button on pin %s is already registered to this controller.", pin.pin()));
-        } else {
+        } else if (null != callback) {
             ButtonManager.INSTANCE.setupButton(pin);
             buttonMap.put(pin, callback);
+        }
+    }
+
+    public static class Builder {
+        private final Map<Pin, ButtonCallback> pinMap = new HashMap<>();
+
+        public void bind(final Pin pin, final ButtonCallback buttonCallback) {
+            pinMap.put(pin, buttonCallback);
+        }
+
+        public ButtonController build() {
+            return new ButtonController(pinMap);
         }
     }
 
