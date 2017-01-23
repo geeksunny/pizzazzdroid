@@ -18,9 +18,7 @@ package com.radicalninja.pizzazz;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 
-import com.radicalninja.pizzazz.input.ButtonManager;
 import com.radicalninja.pizzazz.ui.WindowManager;
 
 public class PizzazzActivity extends Activity {
@@ -43,18 +41,4 @@ public class PizzazzActivity extends Activity {
         windowManager.cleanup();
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return ButtonManager.onKeyUp(keyCode);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return ButtonManager.onKeyDown(keyCode);
-    }
-
-    @Override
-    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
-        return ButtonManager.onKeyMultiple(keyCode);
-    }
 }

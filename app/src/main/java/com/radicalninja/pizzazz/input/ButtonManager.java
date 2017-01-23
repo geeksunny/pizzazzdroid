@@ -20,8 +20,8 @@ public enum ButtonManager {
 
     private final static String TAG = "ButtonManager";
 
-    private final SparseArray<Pin> keyMap = new SparseArray<>();
-    private final Map<Pin, ButtonInputDriver> buttonMap = new HashMap<>();
+    private final Map<Pin, Button> pinMap = new HashMap<>();
+    private final Map<Button, Pin> buttonMap = new HashMap<>();
 
     private ButtonController buttonController;
 
@@ -36,13 +36,12 @@ public enum ButtonManager {
     public void setupButton(@NonNull final Pin pin) {
         // TODO: Work in bouncetime – may require modification to the button driver
         // TODO: Work in holdTime, holdRepeat logic manually or within button driver – use KeyEvent.ACTION_MULTIPLE
-        if (!buttonMap.containsKey(pin) || null == buttonMap.get(pin)) {
+        if (!pinMap.containsKey(pin) || null == pinMap.get(pin)) {
             try {
-                final ButtonInputDriver button =
-                        new ButtonInputDriver(pin.pin(), Button.LogicState.PRESSED_WHEN_LOW, pin.keycode());
-                button.register();
-                buttonMap.put(pin, button);
-                keyMap.put(pin.keycode(), pin);
+                final Button button = new Button(pin.pin(), Button.LogicState.PRESSED_WHEN_LOW);
+                button.setOnButtonEventListener(buttonEventListener);
+                pinMap.put(pin, button);
+                buttonMap.put(button, pin);
             } catch (IOException e) {
                 Log.e(TAG, String.format("Error configuring GPIO button on pin %s", pin.pin()), e);
             }
@@ -50,49 +49,39 @@ public enum ButtonManager {
     }
 
     public void closeButton(@NonNull final Pin pin) {
-        if (!buttonMap.containsKey(pin)) {
+        if (!pinMap.containsKey(pin)) {
             Log.i(TAG, String.format(
                     "Attempted to close GPIO button on pin %s but it was not registered.", pin.pin()));
             return;
         }
-        final ButtonInputDriver button = buttonMap.get(pin);
+        final Button button = pinMap.get(pin);
         try {
-            button.unregister();
             button.close();
         } catch (IOException e) {
             Log.e(TAG, String.format("Error attempting to close GPIO button on pin %s", pin.pin()), e);
         } finally {
-            buttonMap.remove(pin);
+            buttonMap.remove(button);
+            pinMap.remove(pin);
         }
     }
 
     public void cleanup() {
-        for (final Pin pin : buttonMap.keySet()) {
+        for (final Pin pin : pinMap.keySet()) {
             closeButton(pin);
         }
         buttonMap.clear();
     }
 
-    boolean onKeyEvent(final int keyCode, final int keyAction) {
-        final Pin pin = INSTANCE.keyMap.get(keyCode);
-        if (null == pin || null == buttonController) {
-            return false;
-        } else {
-            buttonController.handleButtonEvent(pin, keyAction);
-            return true;
+    private Button.OnButtonEventListener buttonEventListener = new Button.OnButtonEventListener() {
+        @Override
+        public void onButtonEvent(Button button, boolean pressed) {
+            final Pin pin = buttonMap.get(button);
+            // TODO: Timer logic for ACTION_MULTIPLE signal
+            if (null != pin && null != buttonController) {
+                final int action = pressed ? KeyEvent.ACTION_DOWN : KeyEvent.ACTION_UP;
+                buttonController.handleButtonEvent(pin, action);
+            }
         }
-    }
-
-    public static boolean onKeyUp(final int keyCode) {
-        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_UP);
-    }
-
-    public static boolean onKeyDown(final int keyCode) {
-        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_DOWN);
-    }
-
-    public static boolean onKeyMultiple(final int keyCode) {
-        return INSTANCE.onKeyEvent(keyCode, KeyEvent.ACTION_MULTIPLE);
-    }
+    };
 
 }
