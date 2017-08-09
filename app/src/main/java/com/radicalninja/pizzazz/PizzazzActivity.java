@@ -17,28 +17,43 @@
 package com.radicalninja.pizzazz;
 
 import android.app.Activity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.things.contrib.driver.sensehat.SenseHat;
 import com.radicalninja.pizzazz.ui.WindowManager;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class PizzazzActivity extends Activity {
 
     private static final String TAG = PizzazzActivity.class.getSimpleName();
 
-    private final WindowManager windowManager = new WindowManager();
+//    private final WindowManager windowManager = new WindowManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Pizzazz.getInstance().setupHwRev2(windowManager);
-        windowManager.start();
+//        Pizzazz.getInstance().setupHwRev2(windowManager);
+////        windowManager.start();
+//        windowManager.stop(); finish();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        windowManager.stop();
-        windowManager.cleanup();
+//        windowManager.stop();
+//        windowManager.cleanup();
     }
 
 }

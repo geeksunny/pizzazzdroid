@@ -2,14 +2,18 @@ package com.radicalninja.pizzazz;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.os.Handler;
 import android.util.Log;
 
+import com.google.android.things.contrib.driver.hts221.Hts221;
+import com.google.android.things.contrib.driver.lps25h.Lps25h;
 import com.google.android.things.contrib.driver.sensehat.SenseHat;
 import com.google.android.things.contrib.driver.ssd1306.Ssd1306;
 import com.radicalninja.pizzazz.display.Oled1306;
 import com.radicalninja.pizzazz.ui.Window;
 import com.radicalninja.pizzazz.ui.MenuWindow;
 import com.radicalninja.pizzazz.ui.WindowManager;
+import com.radicalninja.pizzazz.util.CpuTemp;
 import com.radicalninja.pizzazz.util.Fonts;
 
 import java.io.IOException;
@@ -32,11 +36,33 @@ public class Pizzazz extends Application {
     public void onCreate() {
         super.onCreate();
         Fonts.init(getAssets());
-        try {
-            SenseHat.openDisplay().draw(Color.BLACK);
-        } catch (IOException e) {
-            Log.e(TAG, "Error opening the SenseHat LED matrix.", e);
-        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SenseHat.openDisplay().draw(Color.BLACK);
+                    final CpuTemp cpuTemp = new CpuTemp();
+                    final float ct = cpuTemp.getTemperature();
+
+                    final Hts221 humidity = SenseHat.openHumiditySensor();
+                    final float ht = humidity.readTemperature();
+
+                    final Lps25h pressure = SenseHat.openPressureSensor();
+                    final float pt = pressure.readTemperature();
+
+                    //final float ambientTemp = CpuTemp.getAmbientTemperature(cpuTemp, humidity, pressure);
+                    final float ambientTemp = CpuTemp.getAmbientTemperature(ct, ht, pt);
+
+                    final String temperatures = String.format("CPU: %f | HUMIDITY: %f | PRESSURE: %f | AMBIENT: %f", ct, ht, pt, ambientTemp);
+                    Log.d(TAG, temperatures);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error opening the SenseHat LED matrix.", e);
+                } finally {
+                    Log.d(TAG, "Finished with temp test!");
+                }
+            }
+        }, 5000);
     }
 
     public void setupHwRev2(final WindowManager wm) {

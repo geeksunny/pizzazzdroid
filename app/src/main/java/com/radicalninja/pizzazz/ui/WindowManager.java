@@ -79,6 +79,7 @@ public class WindowManager extends MultiplexButtonController {
     }
 
     private void refreshDisplays() {
+        // TODO: Add AsyncTask / TreadPool for handling refresh
         for (final Display display : displays) {
             display.refresh();
         }
